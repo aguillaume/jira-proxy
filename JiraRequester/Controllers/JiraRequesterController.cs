@@ -17,9 +17,9 @@ namespace JiraRequester.Controllers
         {
             using (var client = new WebClient())
             {
-                client.Headers.Set("Authorization", "Basic Z2FscGU6KWpCZW9QTUNGNHp0");
+                
+                client.Headers.Set("Authorization", Request.Headers.Authorization.ToString());
                 using (var stream = client.OpenRead($"http://jira.mppglobal.com/rest/api/2/search?jql={jiraQ}&startAt=0&maxResults=-1"))
-                //using (var stream = client.OpenRead("http://jira.mppglobal.com/rest/api/2/search?jql=labels%20%3D%20Milestone2%20and%20labels%20%3D%20tetris%20&startAt=0&maxResults=-1"))
                 using (var reader = new StreamReader(stream))
                 {
                     var jObject = Newtonsoft.Json.Linq.JObject.Parse(reader.ReadLine());
